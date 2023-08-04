@@ -2,7 +2,7 @@
 #PBS -l walltime=24:00:00
 #PBS -N mriqc-all
 #PBS -q normal
-#PBS -m bae
+#PBS -m ae
 #PBS -M david.v.smith@temple.edu
 #PBS -l nodes=12:ppn=4
 
