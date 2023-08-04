@@ -25,8 +25,8 @@ touch $logdir/cmd_mriqc_${PBS_JOBID}.txt
 
 # make derivatives folder if it doesn't exist.
 # let's keep this out of bids for now
-if [ ! -d $maindir/derivatives ]; then
-	mkdir -p $maindir/derivatives
+if [ ! -d $maindir/derivatives/mriqc ]; then
+	mkdir -p $maindir/derivatives/mriqc
 fi
 
 scratchdir=~/scratch/mriqc
@@ -41,11 +41,11 @@ export SINGULARITYENV_MPLCONFIGDIR=/opt/mplconfigdir
 
 # need to change this to a more targetted list of subjects
 for sub in `ls -1d $bidsdir/sub-*`; do
-	sub="${sub##*/}"
+	sub=`echo $sub | cut -c 5-`
 	echo singularity run --cleanenv \
 	-B ${TEMPLATEFLOW_DIR}:/opt/templateflow \
 	-B $maindir/bids:/data \
-	-B $maindir/derivatives:/out \
+	-B $maindir/derivatives/mriqc:/out \
 	-B $scratchdir:/scratch \
 	~/work/tools/mriqc-23.1.0.simg \
 	/data /out \
