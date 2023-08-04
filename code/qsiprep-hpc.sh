@@ -53,7 +53,8 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	--participant_label $sub \
 	--distortion-group-merge average \
 	--combine-all-dwis \
-	--fs-no-reconall --fs-license-file /opts/fs_license.txt -w /scratch >> $logdir/cmd_qsiprep_${PBS_JOBID}.txt
+	--fs-license-file /opts/fs_license.txt \
+	-w /scratch >> $logdir/cmd_qsiprep_${PBS_JOBID}.txt
 done
 
 torque-launch -p $logdir/chk_qsiprep_${PBS_JOBID}.txt $logdir/cmd_qsiprep_${PBS_JOBID}.txt
