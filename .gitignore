@@ -159,3 +159,6 @@ sub-*.html
 .~*#
 *.out
 *.log
+logs
+*.e*
+*.o*
