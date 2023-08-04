@@ -50,7 +50,7 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	-B $scratchdir:/scratch \
 	~/work/tools/qsiprep-0.18.0.sif \
 	/base/bids /base/derivatives/qsiprep \
-	participant --participant_label $sub \
+	--participant_label $sub \
 	--distortion-group-merge average \
 	--combine-all-dwis \
 	--fs-no-reconall --fs-license-file /opts/fs_license.txt -w /scratch >> $logdir/cmd_qsiprep_${PBS_JOBID}.txt
