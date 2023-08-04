@@ -41,7 +41,7 @@ export SINGULARITYENV_MPLCONFIGDIR=/opt/mplconfigdir
 
 # need to change this to a more targetted list of subjects
 for sub in `ls -1d $bidsdir/sub-*`; do
-	sub=`echo $sub | cut -c 5-`
+	sub=${sub:(-5)}
 	if [ $sub -eq 10317 ] || [ $sub -eq 10369 ] || [ $sub -eq 10402 ] || [ $sub -eq 10486 ] || [ $sub -eq 10541 ] || [ $sub -eq 10572 ] || [ $sub -eq 10584 ] || [ $sub -eq 10589 ] || [ $sub -eq 10691 ] || [ $sub -eq 10701 ]; then
 		echo singularity run --cleanenv \
 		-B ${TEMPLATEFLOW_DIR}:/opt/templateflow \
