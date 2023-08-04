@@ -20,8 +20,8 @@ logdir=$maindir/logs
 mkdir -p $logdir
 
 
-rm -f $logdir/cmd_fmriprep_${PBS_JOBID}.txt
-touch $logdir/cmd_fmriprep_${PBS_JOBID}.txt
+rm -f $logdir/cmd_mriqc_${PBS_JOBID}.txt
+touch $logdir/cmd_mriqc_${PBS_JOBID}.txt
 
 # make derivatives folder if it doesn't exist.
 # let's keep this out of bids for now
@@ -29,7 +29,7 @@ if [ ! -d $maindir/derivatives ]; then
 	mkdir -p $maindir/derivatives
 fi
 
-scratchdir=~/scratch/fmriprep
+scratchdir=~/scratch/mriqc
 if [ ! -d $scratchdir ]; then
 	mkdir -p $scratchdir
 fi
@@ -45,7 +45,7 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	echo singularity run --cleanenv \
 	-B ${TEMPLATEFLOW_DIR}:/opt/templateflow \
 	-B $maindir/bids:/data \
-	-B $maindir/derivatives/mriqc:/out \
+	-B $maindir/derivatives:/out \
 	-B $scratchdir:/scratch \
 	~/work/tools/mriqc-23.1.0.simg \
 	/data /out \
@@ -54,4 +54,4 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	-w /scratch >> $logdir/cmd_mriqc_${PBS_JOBID}.txt
 done
 
-torque-launch -p $logdir/chk_fmriprep_${PBS_JOBID}.txt $logdir/cmd_mriqc_${PBS_JOBID}.txt
+torque-launch -p $logdir/chk_mriqc_${PBS_JOBID}.txt $logdir/cmd_mriqc_${PBS_JOBID}.txt
