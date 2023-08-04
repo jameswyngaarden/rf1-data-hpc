@@ -51,6 +51,7 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	~/work/tools/qsiprep-0.18.0.sif \
 	/base/bids /base/derivatives/qsiprep \
 	participant --participant_label $sub \
+	--output-resolution 2 \
 	--fs-license-file /opts/fs_license.txt \
 	-w /scratch >> $logdir/cmd_qsiprep_${PBS_JOBID}.txt
 done
