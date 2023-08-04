@@ -56,7 +56,6 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 		--stop-on-first-crash \
 		--nthreads 12 \
 		--me-output-echos \
-		--stop-on-first-crash \
 		--use-syn-sdc \
 		--fs-no-reconall --fs-license-file /opts/fs_license.txt -w /scratch >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
 	else
@@ -72,7 +71,6 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 		--stop-on-first-crash \
 		--nthreads 12 \
 		--me-output-echos \
-		--stop-on-first-crash \
 		--fs-no-reconall --fs-license-file /opts/fs_license.txt -w /scratch >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
 	fi
 done

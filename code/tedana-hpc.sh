@@ -34,47 +34,8 @@ if [ ! -d $scratchdir ]; then
 	mkdir -p $scratchdir
 fi
 
-TEMPLATEFLOW_DIR=~/work/tools/templateflow
-MPLCONFIGDIR_DIR=~/work/mplconfigdir
-export SINGULARITYENV_TEMPLATEFLOW_HOME=/opt/templateflow
-export SINGULARITYENV_MPLCONFIGDIR=/opt/mplconfigdir
+# need to make this run per subject
+python my_tedana.py --fmriprepDir /data/projects/rf1-mbme-pilot/derivatives/fmriprep --bidsDir /data/projects/rf1-mbme-pilot/bids --cores 8
 
-# need to change this to a more targetted list of subjects
-for sub in `ls -1d $bidsdir/sub-*`; do
-	sub="${sub##*/}"
-
-	if [ $sub -eq 10317 ] || [ $sub -eq 10369 ] || [ $sub -eq 10402 ] || [ $sub -eq 10486 ] || [ $sub -eq 10541 ] || [ $sub -eq 10572 ] || [ $sub -eq 10584 ] || [ $sub -eq 10589 ] || [ $sub -eq 10691 ] || [ $sub -eq 10701 ]; then
-		echo singularity run --cleanenv \
-		-B ${TEMPLATEFLOW_DIR}:/opt/templateflow \
-		-B ${MPLCONFIGDIR_DIR}:/opt/mplconfigdir \
-		-B $maindir:/base \
-		-B ~/work/tools/licenses:/opts \
-		-B $scratchdir:/scratch \
-		~/work/tools/fmriprep-23.1.3.simg \
-		/base/bids /base/derivatives/fmriprep \
-		participant --participant_label $sub \
-		--stop-on-first-crash \
-		--nthreads 12 \
-		--me-output-echos \
-		--stop-on-first-crash \
-		--use-syn-sdc \
-		--fs-no-reconall --fs-license-file /opts/fs_license.txt -w /scratch >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
-	else
-		echo singularity run --cleanenv \
-		-B ${TEMPLATEFLOW_DIR}:/opt/templateflow \
-		-B ${MPLCONFIGDIR_DIR}:/opt/mplconfigdir \
-		-B $maindir:/base \
-		-B ~/work/tools/licenses:/opts \
-		-B $scratchdir:/scratch \
-		~/work/tools/fmriprep-23.1.3.simg \
-		/base/bids /base/derivatives/fmriprep \
-		participant --participant_label $sub \
-		--stop-on-first-crash \
-		--nthreads 12 \
-		--me-output-echos \
-		--stop-on-first-crash \
-		--fs-no-reconall --fs-license-file /opts/fs_license.txt -w /scratch >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
-	fi
-done
 
 torque-launch -p $logdir/chk_fmriprep_${PBS_JOBID}.txt $logdir/cmd_fmriprep_${PBS_JOBID}.txt
