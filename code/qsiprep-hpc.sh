@@ -48,7 +48,7 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	-B $maindir:/base \
 	-B ~/work/tools/licenses:/opts \
 	-B $scratchdir:/scratch \
-	~/work/tools/qsiprep-0.18.0.simg \
+	~/work/tools/qsiprep-0.18.0.sif \
 	/base/bids /base/derivatives/qsiprep \
 	participant --participant_label $sub \
 	--distortion-group-merge average \
