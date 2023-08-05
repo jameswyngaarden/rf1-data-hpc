@@ -49,7 +49,7 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	-B ~/work/tools/licenses:/opts \
 	-B $scratchdir:/scratch \
 	~/work/tools/qsiprep-0.18.0.sif \
-	/base/bids /base/derivatives/qsiprep \
+	/base/bids /base/derivatives \
 	participant --participant_label $sub \
 	--output-resolution 2 \
 	--fs-license-file /opts/fs_license.txt \
