@@ -20,22 +20,16 @@ logdir=$maindir/logs
 mkdir -p $logdir
 
 
-rm -f $logdir/cmd_fmriprep_${PBS_JOBID}.txt
-touch $logdir/cmd_fmriprep_${PBS_JOBID}.txt
+rm -f $logdir/cmd_tedana_${PBS_JOBID}.txt
+touch $logdir/cmd_tedana_${PBS_JOBID}.txt
 
-# make derivatives folder if it doesn't exist.
-# let's keep this out of bids for now
-if [ ! -d $maindir/derivatives ]; then
-	mkdir -p $maindir/derivatives
-fi
+# need to change this to a more targetted list of subjects
+for sub in `ls -1d $bidsdir/sub-*`; do
+	sub=${sub:(-5)}
 
-scratchdir=~/scratch/fmriprep
-if [ ! -d $scratchdir ]; then
-	mkdir -p $scratchdir
-fi
+	# need to make this run per subject
+	echo python my_tedana.py $sub >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
 
-# need to make this run per subject
-python my_tedana.py --fmriprepDir /data/projects/rf1-mbme-pilot/derivatives/fmriprep --bidsDir /data/projects/rf1-mbme-pilot/bids --cores 8
+done
 
-
-torque-launch -p $logdir/chk_fmriprep_${PBS_JOBID}.txt $logdir/cmd_fmriprep_${PBS_JOBID}.txt
+torque-launch -p $logdir/chk_tedana_${PBS_JOBID}.txt $logdir/cmd_tedana_${PBS_JOBID}.txt
