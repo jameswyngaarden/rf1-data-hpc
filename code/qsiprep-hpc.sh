@@ -4,7 +4,7 @@
 #PBS -q normal
 #PBS -m ae
 #PBS -M david.v.smith@temple.edu
-#PBS -l nodes=4:ppn=14
+#PBS -l nodes=12:ppn=4
 
 # load modules and go to workdir
 module load fsl/6.0.2
@@ -52,6 +52,7 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	/base/bids /base/derivatives \
 	participant --participant_label $sub \
 	--output-resolution 2 \
+	--nthreads 12 \
 	--fs-license-file /opts/fs_license.txt \
 	-w /scratch >> $logdir/cmd_qsiprep_${PBS_JOBID}.txt
 done
