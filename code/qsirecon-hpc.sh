@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -l walltime=48:00:00
-#PBS -N qsiprep-all
+#PBS -N qsirecon-all
 #PBS -q normal
 #PBS -m ae
 #PBS -M david.v.smith@temple.edu
@@ -53,7 +53,7 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	~/work/tools/qsiprep-0.18.0.sif \
 	/base/bids /base/derivatives/qsirecon-mrtrix \
 	participant --participant_label $sub \
-	--recon_input /base/derivatives/qsiprep \
+	--recon_input /base/derivatives \
 	--recon_spec mrtrix_multishell_msmt_ACT-hsvs \
 	--fs-license-file /opts/fs_license.txt \
 	-w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
@@ -68,7 +68,7 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	~/work/tools/qsiprep-0.18.0.sif \
 	/base/bids /base/derivatives/qsirecon-noddi \
 	participant --participant_label $sub \
-	--recon_input /base/derivatives/qsiprep \
+	--recon_input /base/derivatives \
 	--recon_spec amico_noddi \
 	--fs-license-file /opts/fs_license.txt \
 	-w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
