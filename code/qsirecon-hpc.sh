@@ -53,6 +53,8 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	~/work/tools/qsiprep-0.18.0.sif \
 	/base/bids /base/derivatives/qsirecon-mrtrix \
 	participant --participant_label $sub \
+	--output-resolution 2 \
+	--nthreads 12 \
 	--recon_input /base/derivatives \
 	--recon_spec mrtrix_multishell_msmt_ACT-hsvs \
 	--fs-license-file /opts/fs_license.txt \
@@ -68,6 +70,8 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	~/work/tools/qsiprep-0.18.0.sif \
 	/base/bids /base/derivatives/qsirecon-noddi \
 	participant --participant_label $sub \
+	--output-resolution 2 \
+	--nthreads 12 \
 	--recon_input /base/derivatives \
 	--recon_spec amico_noddi \
 	--fs-license-file /opts/fs_license.txt \
