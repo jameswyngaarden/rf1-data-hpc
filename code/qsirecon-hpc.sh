@@ -4,7 +4,7 @@
 #PBS -q normal
 #PBS -m ae
 #PBS -M david.v.smith@temple.edu
-#PBS -l nodes=12:ppn=28
+#PBS -l nodes=12:ppn=4
 
 # load modules and go to workdir
 module load fsl/6.0.2
@@ -60,22 +60,22 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	--fs-license-file /opts/fs_license.txt \
 	-w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
 
-	# amico_noddi
-	echo singularity run --cleanenv \
-	-B ${TEMPLATEFLOW_DIR}:/opt/templateflow \
-	-B ${MPLCONFIGDIR_DIR}:/opt/mplconfigdir \
-	-B $maindir:/base \
-	-B ~/work/tools/licenses:/opts \
-	-B $scratchdir:/scratch \
-	~/work/tools/qsiprep-0.18.0.sif \
-	/base/bids /base/derivatives/qsirecon-noddi \
-	participant --participant_label $sub \
-	--output-resolution 2 \
-	--nthreads 12 \
-	--recon_input /base/derivatives \
-	--recon_spec amico_noddi \
-	--fs-license-file /opts/fs_license.txt \
-	-w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
+	# # amico_noddi
+	# echo singularity run --cleanenv \
+	# -B ${TEMPLATEFLOW_DIR}:/opt/templateflow \
+	# -B ${MPLCONFIGDIR_DIR}:/opt/mplconfigdir \
+	# -B $maindir:/base \
+	# -B ~/work/tools/licenses:/opts \
+	# -B $scratchdir:/scratch \
+	# ~/work/tools/qsiprep-0.18.0.sif \
+	# /base/bids /base/derivatives/qsirecon-noddi \
+	# participant --participant_label $sub \
+	# --output-resolution 2 \
+	# --nthreads 12 \
+	# --recon_input /base/derivatives \
+	# --recon_spec amico_noddi \
+	# --fs-license-file /opts/fs_license.txt \
+	# -w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
 
 done
 
