@@ -53,4 +53,4 @@ task_image_files.sort()
 
 out_dir= os.path.join(os.path.abspath(os.path.dirname( prep_data )), "tedana/%s/%s"%(sub,prefix))
 
-RUN_Tedana(sub,prefix,acq_image_files,echo_times,out_dir)
+RUN_Tedana(sub,prefix,task_image_files,echo_times,out_dir)
