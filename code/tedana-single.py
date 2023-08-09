@@ -50,7 +50,7 @@ task_image_files=[os.path.join(root, f) for root, dirs, files in os.walk(prep_da
               if (prefix in f) & ('echo' in f) & (f.endswith('_desc-preproc_bold.nii.gz'))]
 task_image_files.sort()
 
-
 out_dir= os.path.join(os.path.abspath(os.path.dirname( prep_data )), "tedana/%s/%s"%(sub,prefix))
 
-RUN_Tedana(sub,prefix,task_image_files,echo_times,out_dir)
+print(task_image_files[0])
+#RUN_Tedana(sub,prefix,task_image_files,echo_times,out_dir)
