@@ -35,7 +35,7 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 		MAINOUTPUT=${maindir}/derivatives/fsl/sub-${sub}
 		mkdir -p $MAINOUTPUT
 		DATA=${maindir}/derivatives/fmriprep/sub-${sub}/func/sub-${sub}_task-${TASK}_run-${run}_space-MNI152NLin2009cAsym_desc-preproc_bold.nii.gz
-		CONFOUNDEVS=${datadir}/derivatives/fsl/confounds/sub-${sub}/sub-${sub}_task-${TASK}_run-${run}_desc-fslConfounds.tsv
+		CONFOUNDEVS=${maindir}/derivatives/fsl/confounds/sub-${sub}/sub-${sub}_task-${TASK}_run-${run}_desc-fslConfounds.tsv
 		if [ ! -e $CONFOUNDEVS ]; then
 			echo "missing: $CONFOUNDEVS " >> ${maindir}/re-runL1.log
 			continue # exiting/continuing to ensure nothing gets run without confounds
