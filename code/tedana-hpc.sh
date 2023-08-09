@@ -34,7 +34,7 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 			--bidsDir $bidsdir \
 			--sub $sub \
 			--task $task \
-			--runnum $run >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
+			--runnum $run >> $logdir/cmd_tedana_${PBS_JOBID}.txt
 
 		done
 	done
