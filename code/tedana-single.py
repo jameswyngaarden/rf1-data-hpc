@@ -52,5 +52,7 @@ task_image_files.sort()
 
 out_dir= os.path.join(os.path.abspath(os.path.dirname( prep_data )), "tedana/%s/%s"%(sub,prefix))
 
-print(task_image_files[0])
-#RUN_Tedana(sub,prefix,task_image_files,echo_times,out_dir)
+if os.path.isfile(task_image_file[0]):
+    RUN_Tedana(sub,prefix,task_image_files,echo_times,out_dir)
+else:
+    print("FILE NOT FOUND: %s" % task_image_file[0])

@@ -1,10 +1,10 @@
 #!/bin/bash
-#PBS -l walltime=24:00:00
-#PBS -N fmriprep-all
+#PBS -l walltime=12:00:00
+#PBS -N tedana-all
 #PBS -q normal
 #PBS -m ae
 #PBS -M david.v.smith@temple.edu
-#PBS -l nodes=12:ppn=4
+#PBS -l nodes=12:ppn=28
 
 # load modules and go to workdir
 module load fsl/6.0.2
@@ -26,10 +26,18 @@ touch $logdir/cmd_tedana_${PBS_JOBID}.txt
 # need to change this to a more targetted list of subjects
 for sub in `ls -1d $bidsdir/sub-*`; do
 	sub=${sub:(-5)}
+	for task in socialdoors doors trust sharedreward ugr; do
+		for run in 1 2; do
 
-	# need to make this run per subject
-	echo python my_tedana.py $sub >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
+			echo python tedana-single.py \
+			--fmriprepDir $maindir/derivatives/fmriprep \
+			--bidsDir $bidsdir \
+			--sub $sub \
+			--task $task \
+			--runnum $run >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
 
+		done
+	done
 done
 
 torque-launch -p $logdir/chk_tedana_${PBS_JOBID}.txt $logdir/cmd_tedana_${PBS_JOBID}.txt
