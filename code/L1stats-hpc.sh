@@ -41,7 +41,7 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 			continue # exiting/continuing to ensure nothing gets run without confounds
 		fi
 		EVDIR=${maindir}/derivatives/fsl/EVfiles/sub-${sub}/${TASK}/run-0${run} # don't zeropad here since only 2 runs at most
-		if [ ! -d ${EVDIR} ]; then
+		if [ ! -d ${maindir}/derivatives/fsl/EVfiles/sub-${sub}/${TASK} ]; then
 			echo "missing EVfiles: $EVDIR " >> ${maindir}/re-runL1.log
 			continue # skip these since some won't exist yet
 		fi
