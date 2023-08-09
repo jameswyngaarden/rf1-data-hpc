@@ -24,6 +24,7 @@ rm -f $logdir/cmd_tedana_${PBS_JOBID}.txt
 touch $logdir/cmd_tedana_${PBS_JOBID}.txt
 
 # need to change this to a more targetted list of subjects
+# also should only run this if the inputs exist. add if statements.
 for sub in `ls -1d $bidsdir/sub-*`; do
 	sub=${sub:(-5)}
 	for task in socialdoors doors trust sharedreward ugr; do
