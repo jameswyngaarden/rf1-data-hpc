@@ -82,7 +82,11 @@ The [qsirecon-hpc.sh](code/qsirecon-hpc.sh) script carries out reconstruction an
 ### Running statistics with FSL
 The [L1stats-hpc.sh](code/L1stats-hpc.sh) script currently reads the contents of your bids directory and runs `feat` on everyone there. For this job, my resource request was `nodes=4:ppn=15`. I knew all 36 subjects here didn't have EV files for the trust task, so I figured there was a max of 60 runs This job took about 1 hour to complete, and I don't think there were any issues with the output. But, the utilization was only 22%, meaning I requested more than I needed.
 
+After you run [L1stats-hpc.sh](code/L1stats-hpc.sh), you have to run [cleanL1.sh](code/cleanL1.sh) as well. The [cleanL1.sh](code/cleanL1.sh) script will delete unecessary files and fix your registration so that your L2 and L3 analyses work.
+
 In general, I think each run of data you put through `feat` should be allowed to have 4 CPUs and at least 4-6 GBs of RAM. Memory usually won't be an issue with `feat` unless you have very large datasets. But, I'd like to see our utilization above 75%.
+
+Note: We could probably drop the [cleanL1.sh](code/cleanL1.sh) step adjusted our submission process. In retrospect, I probably should've just fed `torque-launch` a list of submissions that would normally come from our `run_L1stats.sh` script (e.g., `L1stats.sh 10369 1 0`).
 
 
 ## Things to consider
