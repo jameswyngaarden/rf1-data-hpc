@@ -24,29 +24,42 @@ Beyond basic operations in Linux, you should also have a good sense of how much 
 
 ## Examples and notes
 
+For my initial testing, I used all the subjects currently in the bids directory (N = 36). Each subject would have a maximum of 8 runs of data (4 tasks, 2 runs each). Since we have 4 echoes, this load would be multiplied by 4 for the initial processing steps leading up to `feat`. This means that programs like  `fmriprep` would be working 32 functional images for each subject.
+
+Note that all of the scripts below currently read the contents of your bids directory and run the script on everyone there. This strategy is not optimal and you need to adjust what for your on use cases and ensure you request the appropriate amount of resources. I used the "normal" queue for everything.
+
 ### Copying files with rsync
-Here are some commands that helped me get data back and forth. Note that you'll be prompted for your password each time.
+Here are some commands that helped me get data back and forth. Note that you'll be prompted for your password each time. You should check these commands to make sure you don't wind up with duplicated directories (e.g., bids/bids) or copying the files without the folder.
 ```
+# copy BIDS files from our Linux Box to the OwlsNest
+rsync -avh --no-compress --progress /ZPOOL/data/projects/rf1-data-hpc/bids tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/.
+
 # copy EV files from our Linux Box to the OwlsNest
-rsync -avh --no-compress --progress EVfiles tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/derivatives/fsl/.
+rsync -avh --no-compress --progress /ZPOOL/data/projects/rf1-data-hpc//derivatives/fsl/EVfiles tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/derivatives/fsl/.
 
 # copy fmriprep derivatives from the OwlsNest to our Linux box
 rsync -avh --no-compress --progress tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/derivatives/fmriprep /ZPOOL/data/projects/rf1-data-hpc/derivatives/.
-
 ```
-### Running FMRIprep
-The [fmriprep-hpc.sh](code/fmriprep-hpc.sh) script currently reads the contents of your bids directory and runs fmriprep on everyone there. 
 
-### Running QSIprep
-Let's say I want to copy files from our Linux Bo
+### Running FMRIprep
+The [fmriprep-hpc.sh](code/fmriprep-hpc.sh) script currently reads the contents of your bids directory and runs `fmriprep` on everyone there. For this job, my resource request was `12:ppn=4`. I did not want to use all of the processors on the node because I didn't want to run into memory limits. This job took about 3.5 hours to complete, but I had to re-run because some participants crashed with memory issues. It's important to remember that `fmriprep` can pick up where it left off and use whatever partial output it has in scratch. So, don't delete your scratch till you know it's all good.
+
+
+## Running MRIQC
+The [mriqc-hpc.sh](code/mriqc-hpc.sh) script currently reads the contents of your bids directory and runs `mriqc` on everyone there. For this job, my resource request was `12:ppn=4`. I did not want to use all of the processors on the node because I didn't want to run into memory limits. This job took about 1 hour to complete, and I don't think there were any issues with the output.
+
+The utilization was only 45% across the whole job, which suggests I should've requested less (though this isn't super straightforward since the processes are not using the same resources throughout the whole duration of the job)
+
+![Job Resources for MRIQC](imgs/mriqc.png "Job Resources for MRIQC")
+
 
 ### Running TEDANA
 Let's say I want to copy files from our Linux Bo
 
 ### Running statistics with FSL
-Let's say I want to copy files from our Linux Bo
+The [L1stats-hpc.sh](code/L1stats-hpc.sh) script currently reads the contents of your bids directory and runs `feat` on everyone there. For this job, my resource request was `4:ppn=15`. I knew all 36 subjects here didn't have EV files for the trust task, so I figured there was a max of 60 runs This job took about 1 hour to complete, and I don't think there were any issues with the output. But, the utilization was only 22%, meaning I requested more than I needed.
 
-
+In general, I think each run of data you put through `feat` should be allowed to have 4 CPUs and at least 4-6 GBs of RAM. Memory usually won't be an issue with `feat` unless you have very large datasets. But, I'd like to see our utilization above 75%.
 
 ## Things to consider
 Using the OwlsNest effectively is still a work in progress. Here are a few things to keep in mind as you use the OwlsNest for your analyses.
