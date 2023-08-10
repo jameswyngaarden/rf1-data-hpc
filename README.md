@@ -5,15 +5,15 @@ Eventually, we might be able to effectively use other resources tied to their GP
 
 In all use cases, the biggest thing to keep in mind is efficient use of the resources (more on this below). In a nutshell, you need to have a good sense of how many CPUs and how much memory you need when you submit jobs (a.k.a. tasks) to an HPC. Don't request more resources than you need, but don't request too few.
 
-1. [What should you know already before using the OwlsNest?](what-should-you-know)
-2. [Summary of basic steps](summary-of-basic-steps)
-3. [Examples and notes](example-and-notes)
-  -[Copying files with rsync](rsync)
-  -[Running FMRIprep](fmriprep)
-  -[Running MRIQC](mriqc)
-  -[Processing diffusion data](diffusion-data)
-  -[Running statistics with FSL](statistics)
-4. [Things to consider](things-to-consider)
+1. [What should you know already before using the OwlsNest?](#what-should-you-know)
+2. [Summary of basic steps](#summary-of-basic-steps)
+3. [Examples and notes](#example-and-notes)
+  - [Copying files with rsync](#rsync)
+  - [Running FMRIprep](#fmriprep)
+  - [Running MRIQC](#mriqc)
+  - [Processing diffusion data](#diffusion-data)
+  - [Running statistics with FSL](#statistics)
+4. [Things to consider](#things-to-consider)
 
 
 ## What should you know already before using the OwlsNest?
