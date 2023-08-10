@@ -42,24 +42,37 @@ rsync -avh --no-compress --progress tug87422@owlsnest.hpc.temple.edu:work/rf1-da
 ```
 
 ### Running FMRIprep
-The [fmriprep-hpc.sh](code/fmriprep-hpc.sh) script currently reads the contents of your bids directory and runs `fmriprep` on everyone there. For this job, my resource request was `12:ppn=4`. I did not want to use all of the processors on the node because I didn't want to run into memory limits. This job took about 3.5 hours to complete, but I had to re-run because some participants crashed with memory issues. It's important to remember that `fmriprep` can pick up where it left off and use whatever partial output it has in scratch. So, don't delete your scratch till you know it's all good.
+The [fmriprep-hpc.sh](code/fmriprep-hpc.sh) script currently reads the contents of your bids directory and runs `fmriprep` on everyone there. For this job, my resource request was `nodes=12:ppn=4`. I did not want to use all of the processors on the node because I didn't want to run into memory limits. This job took about 3.5 hours to complete, but I think I had to re-run because some participants crashed with memory issues, though this may have been a different test. Either way, it's important to remember that `fmriprep` can pick up where it left off and use whatever partial output it has in scratch. So, don't delete your scratch till you know it's all good.
+
+The utilization was only 42% across the whole job, which suggests I should've requested less or should've tweaked my `fmriprep` settings. But this isn't super straightforward since the processes are not using the same resources throughout the whole duration of the job, as you can see in the image below.
+
+![Job Resources for FMRIprep](imgs/fmriprep.png "Job Resources for fmriprep")
 
 
 ## Running MRIQC
-The [mriqc-hpc.sh](code/mriqc-hpc.sh) script currently reads the contents of your bids directory and runs `mriqc` on everyone there. For this job, my resource request was `12:ppn=4`. I did not want to use all of the processors on the node because I didn't want to run into memory limits. This job took about 1 hour to complete, and I don't think there were any issues with the output.
+The [mriqc-hpc.sh](code/mriqc-hpc.sh) script currently reads the contents of your bids directory and runs `mriqc` on everyone there. For this job, my resource request was `nodes=12:ppn=4`. I did not want to use all of the processors on the node because I didn't want to run into memory limits. This job took about 1 hour to complete, and I don't think there were any issues with the output.
 
-The utilization was only 45% across the whole job, which suggests I should've requested less (though this isn't super straightforward since the processes are not using the same resources throughout the whole duration of the job)
+The utilization was only 45% across the whole job, which suggests I should've requested less. But this isn't super straightforward since the processes are not using the same resources throughout the whole duration of the job, as you can see in the image below.
 
 ![Job Resources for MRIQC](imgs/mriqc.png "Job Resources for MRIQC")
 
 
 ### Running TEDANA
-Let's say I want to copy files from our Linux Bo
+TEDANA helps us denoise our multiecho data, but it can be rather intensive to run since it has to work with all of the echoes. The [tedana-hpc.sh](code/tedana-hpc.sh) script currently reads the contents of your bids directory and runs `tedana` on everyone there. For this job, my resource request was `nodes=12:ppn=28`. It took about 20 minutes to complete, but my utilization was only 20%. A good test would be whether that utilization goes up to 40% if I request half as many resources (e.g., `nodes=6:ppn=28` or `nodes=12:ppn=14`).
+
+### Processing diffusion data
+We're using [QSIprep](https://qsiprep.readthedocs.io/en/latest/) to process our diffusion data. This is still in beta stage of testing, but works similarly as the scripts above.
+
+The [qsiprep-hpc.sh](code/qsiprep-hpc.sh) script preprocesses the diffusion data and prepares it for further analysis (e.g., tractography). I think this works fine, but I need to review the output.
+
+The [qsirecon-hpc.sh](code/qsirecon-hpc.sh) script carries out reconstruction and analysis. This has not completed yet.
+
 
 ### Running statistics with FSL
-The [L1stats-hpc.sh](code/L1stats-hpc.sh) script currently reads the contents of your bids directory and runs `feat` on everyone there. For this job, my resource request was `4:ppn=15`. I knew all 36 subjects here didn't have EV files for the trust task, so I figured there was a max of 60 runs This job took about 1 hour to complete, and I don't think there were any issues with the output. But, the utilization was only 22%, meaning I requested more than I needed.
+The [L1stats-hpc.sh](code/L1stats-hpc.sh) script currently reads the contents of your bids directory and runs `feat` on everyone there. For this job, my resource request was `nodes=4:ppn=15`. I knew all 36 subjects here didn't have EV files for the trust task, so I figured there was a max of 60 runs This job took about 1 hour to complete, and I don't think there were any issues with the output. But, the utilization was only 22%, meaning I requested more than I needed.
 
 In general, I think each run of data you put through `feat` should be allowed to have 4 CPUs and at least 4-6 GBs of RAM. Memory usually won't be an issue with `feat` unless you have very large datasets. But, I'd like to see our utilization above 75%.
+
 
 ## Things to consider
 Using the OwlsNest effectively is still a work in progress. Here are a few things to keep in mind as you use the OwlsNest for your analyses.
