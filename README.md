@@ -16,14 +16,35 @@ If you're not quite comfortable with Linux and the command line, here are a few 
 Beyond basic operations in Linux, you should also have a good sense of how much resources your jobs require. This point is worth the redundancy, and more guidance is below.
 
 ## Summary of basic steps
-1. Copy data from the Smith Lab Linux to your work directory on the OwlsNest.
-2. scripts
+1. Use `rsync` data from the Smith Lab Linux to your work directory on the OwlsNest.
+2. Install Anaconda and any packages you need.
+3. Set up your GitHub profile and clone your scripts. You can also just clone or fork this repository, but I should make it read only.
+4. Run your jobs (or "calculations" as the OwlsNest folks say)
+5. Use `rsync` to copy your results and output back to our Linux Box.
 
 ## Examples and notes
 
+### Copying files with rsync
+Let's say I want to copy files from our Linux Bo
+
+### Running FMRIprep
+Let's say I want to copy files from our Linux Bo
+
+### Running QSIprep
+Let's say I want to copy files from our Linux Bo
+
+### Running TEDANA
+Let's say I want to copy files from our Linux Bo
+
+### Running statistics with FSL
+Let's say I want to copy files from our Linux Bo
+
+
 
 ## Things to consider
-Using the OwlsNest effectively is still a work in progress
+Using the OwlsNest effectively is still a work in progress. Here are a few things to keep in mind as you use the OwlsNest for your analyses.
 - Memory allocation is something you have to think about depending on what you're doing. In general, jobs using `feat` (e.g., our `L1stats-hpc.sh` script) need much less memory than `fmriprep`.
 - Submission process may be changing to SLURM soon, which is likely good since it's what most folks in our field already use.
 - Need to be careful using `rsync` to copy files back and forth between the OwlsNest and our Linux Box. You can choose to only sync new files (e.g., try `--ignore-existing`; see [this page](https://unix.stackexchange.com/questions/67539/how-to-rsync-only-new-files) for more information)
+- GitHub authentication is a little annoying, and I could only use a token. I had to enter the token each time I tried to push, so I don't bother editing files on the OwlsNest.
+- You may want to try and set up an ssh key that allows you to use [rsync without a password](https://superuser.com/questions/555799/how-to-setup-rsync-without-password-with-ssh-on-unix-linux). In theory, this would allow you to include the file transfer as part of your job, but it may not work since I don't think the compute nodes have access to the internet. 
