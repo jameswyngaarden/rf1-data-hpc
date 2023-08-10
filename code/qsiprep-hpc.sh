@@ -55,9 +55,9 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	--nthreads 12 \
 	--fs-license-file /opts/fs_license.txt \
 	--do-reconall \
-	--distortion-group-merge average \
-	--combine-all-dwis \
 	-w /scratch >> $logdir/cmd_qsiprep_${PBS_JOBID}.txt
 done
+# --distortion-group-merge average \
+# --combine-all-dwis \
 
 torque-launch -p $logdir/chk_qsiprep_${PBS_JOBID}.txt $logdir/cmd_qsiprep_${PBS_JOBID}.txt
