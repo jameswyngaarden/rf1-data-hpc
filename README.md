@@ -5,6 +5,17 @@ Eventually, we might be able to effectively use other resources tied to their GP
 
 In all use cases, the biggest thing to keep in mind is efficient use of the resources (more on this below). In a nutshell, you need to have a good sense of how many CPUs and how much memory you need when you submit jobs (a.k.a. tasks) to an HPC. Don't request more resources than you need, but don't request too few.
 
+1. [What should you know already before using the OwlsNest?](what-should-you-know)
+2. [Summary of basic steps](summary-of-basic-steps)
+3. [Examples and notes](example-and-notes)
+  -[Copying files with rsync](rsync)
+  -[Running FMRIprep](fmriprep)
+  -[Running MRIQC](mriqc)
+  -[Processing diffusion data](diffusion-data)
+  -[Running statistics with FSL](statistics)
+4. [Things to consider](things-to-consider)
+
+
 ## What should you know already before using the OwlsNest?
 Before you start playing around on the OwlsNest, you should be quite comfortable with Linux and using the command line for any tasks. You should also read through the documentation for the OwlsNest and especially job submission. This page assumes you have read their documentation and have a basic sense of the available resources and how to submit jobs.
 
@@ -49,7 +60,7 @@ The utilization was only 42% across the whole job, which suggests I should've re
 ![Job Resources for FMRIprep](imgs/fmriprep.png "Job Resources for fmriprep")
 
 
-## Running MRIQC
+### Running MRIQC
 The [mriqc-hpc.sh](code/mriqc-hpc.sh) script currently reads the contents of your bids directory and runs `mriqc` on everyone there. For this job, my resource request was `nodes=12:ppn=4`. I did not want to use all of the processors on the node because I didn't want to run into memory limits. This job took about 1 hour to complete, and I don't think there were any issues with the output.
 
 The utilization was only 45% across the whole job, which suggests I should've requested less. But this isn't super straightforward since the processes are not using the same resources throughout the whole duration of the job, as you can see in the image below.
