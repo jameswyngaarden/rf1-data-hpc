@@ -25,10 +25,17 @@ Beyond basic operations in Linux, you should also have a good sense of how much 
 ## Examples and notes
 
 ### Copying files with rsync
-Let's say I want to copy files from our Linux Bo
+Here are some commands that helped me get data back and forth. Note that you'll be prompted for your password each time.
+```
+# copy EV files from our Linux Box to the OwlsNest
+rsync -avh --no-compress --progress EVfiles tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/derivatives/fsl/.
 
+# copy fmriprep derivatives from the OwlsNest to our Linux box
+rsync -avh --no-compress --progress tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/derivatives/fmriprep /ZPOOL/data/projects/rf1-data-hpc/derivatives/.
+
+```
 ### Running FMRIprep
-Let's say I want to copy files from our Linux Bo
+The [fmriprep-hpc.sh](code/fmriprep-hpc.sh) script currently reads the contents of your bids directory and runs fmriprep on everyone there. 
 
 ### Running QSIprep
 Let's say I want to copy files from our Linux Bo
@@ -47,4 +54,4 @@ Using the OwlsNest effectively is still a work in progress. Here are a few thing
 - Submission process may be changing to SLURM soon, which is likely good since it's what most folks in our field already use.
 - Need to be careful using `rsync` to copy files back and forth between the OwlsNest and our Linux Box. You can choose to only sync new files (e.g., try `--ignore-existing`; see [this page](https://unix.stackexchange.com/questions/67539/how-to-rsync-only-new-files) for more information)
 - GitHub authentication is a little annoying, and I could only use a token. I had to enter the token each time I tried to push, so I don't bother editing files on the OwlsNest.
-- You may want to try and set up an ssh key that allows you to use [rsync without a password](https://superuser.com/questions/555799/how-to-setup-rsync-without-password-with-ssh-on-unix-linux). In theory, this would allow you to include the file transfer as part of your job, but it may not work since I don't think the compute nodes have access to the internet. 
+- You may want to try and set up an ssh key that allows you to use [rsync without a password](https://superuser.com/questions/555799/how-to-setup-rsync-without-password-with-ssh-on-unix-linux). In theory, this would allow you to include the file transfer as part of your job, but it may not work since I don't think the compute nodes have access to the internet.
