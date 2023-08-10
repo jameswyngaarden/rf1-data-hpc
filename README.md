@@ -43,13 +43,13 @@ Note that all of the scripts below currently read the contents of your bids dire
 Here are some commands that helped me get data back and forth. Note that you'll be prompted for your password each time. You should check these commands to make sure you don't wind up with duplicated directories (e.g., bids/bids) or copying the files without the folder.
 ```
 # copy BIDS files from our Linux Box to the OwlsNest
-rsync -avh --no-compress --progress /ZPOOL/data/projects/rf1-data-hpc/bids tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/.
+rsync -avh --no-compress --progress /ZPOOL/data/projects/rf1-data-hpc/bids tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/bids
 
 # copy EV files from our Linux Box to the OwlsNest
-rsync -avh --no-compress --progress /ZPOOL/data/projects/rf1-data-hpc//derivatives/fsl/EVfiles tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/derivatives/fsl/.
+rsync -avh --no-compress --progress /ZPOOL/data/projects/rf1-data-hpc//derivatives/fsl/EVfiles tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/derivatives/fsl/EVfiles
 
 # copy fmriprep derivatives from the OwlsNest to our Linux box
-rsync -avh --no-compress --progress tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/derivatives/fmriprep /ZPOOL/data/projects/rf1-data-hpc/derivatives/.
+rsync -avh --no-compress --progress tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/derivatives/fmriprep /ZPOOL/data/projects/rf1-data-hpc/derivatives/fmriprep
 ```
 
 ### Running FMRIprep
