@@ -8,11 +8,11 @@ In all use cases, the biggest thing to keep in mind is efficient use of the reso
 1. [What should you know already before using the OwlsNest?](#what-should-you-know)
 2. [Summary of basic steps](#summary-of-basic-steps)
 3. [Examples and notes](#example-and-notes)
-  - [Copying files with rsync](#rsync)
-  - [Running FMRIprep](#fmriprep)
-  - [Running MRIQC](#mriqc)
-  - [Processing diffusion data](#diffusion-data)
-  - [Running statistics with FSL](#statistics)
+    - [Copying files with rsync](#copying-files-with-rsync)
+    - [Running FMRIprep](#running-fmriprep)
+    - [Running MRIQC](#running-mriqc)
+    - [Processing diffusion data](#processing-diffusion-data)
+    - [Running statistics with FSL](#running-statistics-with-fsl)
 4. [Things to consider](#things-to-consider)
 
 
