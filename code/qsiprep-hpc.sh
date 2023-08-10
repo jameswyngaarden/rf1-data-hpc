@@ -54,6 +54,9 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	--output-resolution 2 \
 	--nthreads 12 \
 	--fs-license-file /opts/fs_license.txt \
+	--do-reconall \
+	--distortion-group-merge average \
+	--combine-all-dwis \
 	-w /scratch >> $logdir/cmd_qsiprep_${PBS_JOBID}.txt
 done
 
