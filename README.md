@@ -17,7 +17,7 @@ In all use cases, the biggest thing to keep in mind is efficient use of the reso
 
 
 ## What should you know already before using the OwlsNest?
-Before you start playing around on the OwlsNest, you should be quite comfortable with Linux and using the command line for any tasks. You should also read through the documentation for the OwlsNest and especially job submission. This page assumes you have read their documentation and have a basic sense of the available resources and how to submit jobs.
+Before you start playing around on the OwlsNest, you should be quite comfortable with Linux and using the command line for any tasks. You should also read through the documentation for the OwlsNest and especially job submission. This page assumes you have read their documentation and have a basic sense of the available resources and how to submit jobs. If you're not familiar with some of the basic terminology and commands (e.g., `qsub`, `torque-launch`, node, processors, RAM, etc.), then go back and read the documentation for the [OwlsNest](https://www.hpc.temple.edu/owlsnest2/).
 
 If you're not quite comfortable with Linux and the command line, here are a few recommendations to help get you up to speed:
 1. FSL course materials. See [Introduction to Unix](https://open.win.ox.ac.uk/pages/fslcourse/website/online_materials.html)
@@ -28,10 +28,11 @@ Beyond basic operations in Linux, you should also have a good sense of how much 
 
 ## Summary of basic steps
 1. Use `rsync` data from the Smith Lab Linux to your work directory on the OwlsNest.
-2. Install Anaconda and any packages you need.
+2. Install Anaconda and any packages you need. Also be sure to copy any tools and licenses you need.
 3. Set up your GitHub profile and clone your scripts. You can also just clone or fork this repository, but I should make it read only.
-4. Run your jobs (or "calculations" as the OwlsNest folks say)
-5. Use `rsync` to copy your results and output back to our Linux Box.
+4. Check settings in the header of each script. Be sure to change the email.
+5. Run your jobs (or "calculations" as the OwlsNest folks say)
+6. Use `rsync` to copy your results and output back to our Linux Box.
 
 ## Examples and notes
 
@@ -44,6 +45,9 @@ Here are some commands that helped me get data back and forth. Note that you'll 
 ```
 # copy BIDS files from our Linux Box to the OwlsNest
 rsync -avh --no-compress --progress /ZPOOL/data/projects/rf1-data-hpc/bids tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/bids
+
+# copy tools and licenses from our Linux Box to the OwlsNest
+rsync -avh --no-compress --progress /ZPOOL/data/tools tug87422@owlsnest.hpc.temple.edu:work/tools
 
 # copy EV files from our Linux Box to the OwlsNest
 rsync -avh --no-compress --progress /ZPOOL/data/projects/rf1-data-hpc//derivatives/fsl/EVfiles tug87422@owlsnest.hpc.temple.edu:work/rf1-data-hpc/derivatives/fsl/EVfiles
@@ -82,7 +86,7 @@ The [qsirecon-hpc.sh](code/qsirecon-hpc.sh) script carries out reconstruction an
 ### Running statistics with FSL
 The [L1stats-hpc.sh](code/L1stats-hpc.sh) script currently reads the contents of your bids directory and runs `feat` on everyone there. For this job, my resource request was `nodes=4:ppn=15`. I knew all 36 subjects here didn't have EV files for the trust task, so I figured there was a max of 60 runs This job took about 1 hour to complete, and I don't think there were any issues with the output. But, the utilization was only 22%, meaning I requested more than I needed.
 
-After you run [L1stats-hpc.sh](code/L1stats-hpc.sh), you have to run [cleanL1.sh](code/cleanL1.sh) as well. The [cleanL1.sh](code/cleanL1.sh) script will delete unecessary files and fix your registration so that your L2 and L3 analyses work.
+After you run [L1stats-hpc.sh](code/L1stats-hpc.sh), you have to run [cleanL1.sh](code/cleanL1.sh) as well. The [cleanL1.sh](code/cleanL1.sh) script will delete unnecessary files and fix your registration so that your L2 and L3 analyses work.
 
 In general, I think each run of data you put through `feat` should be allowed to have 4 CPUs and at least 4-6 GBs of RAM. Memory usually won't be an issue with `feat` unless you have very large datasets. But, I'd like to see our utilization above 75%.
 
