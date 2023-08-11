@@ -51,11 +51,11 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 	-B ~/work/tools/licenses:/opts \
 	-B $scratchdir:/scratch \
 	~/work/tools/qsiprep-0.18.0.sif \
-	/base/bids /base/derivatives/qsirecon-mrtrix \
+	/base/bids /base/derivatives \
 	participant --participant_label $sub \
 	--output-resolution 2 \
 	--nthreads 12 \
-	--recon_input /base/derivatives \
+	--recon_input /base/derivatives/qsiprep \
 	--recon_spec mrtrix_multishell_msmt_ACT-hsvs \
 	--fs-license-file /opts/fs_license.txt \
 	-w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
