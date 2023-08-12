@@ -56,7 +56,9 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 		--nthreads 12 \
 		--me-output-echos \
 		--use-syn-sdc \
-		--fs-no-reconall --fs-license-file /opts/fs_license.txt -w /scratch >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
+		--cifti-output 91k \
+		--output-spaces fsLR fsaverage MNI152NLin6Asym \
+		--fs-license-file /opts/fs_license.txt -w /scratch >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
 	else
 		echo singularity run --cleanenv \
 		-B ${TEMPLATEFLOW_DIR}:/opt/templateflow \
@@ -70,7 +72,9 @@ for sub in `ls -1d $bidsdir/sub-*`; do
 		--stop-on-first-crash \
 		--nthreads 12 \
 		--me-output-echos \
-		--fs-no-reconall --fs-license-file /opts/fs_license.txt -w /scratch >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
+		--cifti-output 91k \
+		--output-spaces fsLR fsaverage MNI152NLin6Asym \
+		--fs-license-file /opts/fs_license.txt -w /scratch >> $logdir/cmd_fmriprep_${PBS_JOBID}.txt
 	fi
 done
 
