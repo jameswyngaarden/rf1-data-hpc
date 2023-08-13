@@ -43,7 +43,7 @@ export SINGULARITYENV_MPLCONFIGDIR=/opt/mplconfigdir
 # for sub in `ls -1d $bidsdir/sub-*`; do
 # 	sub=${sub:(-5)}
 
-sub=10317
+sub=10529
 
 # mrtrix_multishell_msmt_ACT-hsvs
 echo singularity run --cleanenv \
@@ -56,28 +56,13 @@ echo singularity run --cleanenv \
 /base/bids /base/derivatives \
 participant --participant_label $sub \
 --output-resolution 2 \
+--nthreads 24 \
 --recon_input /base/derivatives/qsiprep \
---recon_spec mrtrix_multishell_msmt_ACT-hsvs \
+--recon_spec mrtrix_multishell_msmt_ACT-hsvs amico_noddi \
 --freesurfer-input /base/derivatives/fmriprep/sourcedata/freesurfer \
 --fs-license-file /opts/fs_license.txt \
 -w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
 
-	# # amico_noddi
-	# echo singularity run --cleanenv \
-	# -B ${TEMPLATEFLOW_DIR}:/opt/templateflow \
-	# -B ${MPLCONFIGDIR_DIR}:/opt/mplconfigdir \
-	# -B $maindir:/base \
-	# -B ~/work/tools/licenses:/opts \
-	# -B $scratchdir:/scratch \
-	# ~/work/tools/qsiprep-0.18.0.sif \
-	# /base/bids /base/derivatives/qsirecon-noddi \
-	# participant --participant_label $sub \
-	# --output-resolution 2 \
-	# --nthreads 12 \
-	# --recon_input /base/derivatives \
-	# --recon_spec amico_noddi \
-	# --fs-license-file /opts/fs_license.txt \
-	# -w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
 
 # done
 
