@@ -58,7 +58,8 @@ participant --participant_label $sub \
 --output-resolution 2 \
 --nthreads 24 \
 --recon_input /base/derivatives/qsiprep \
---recon_spec mrtrix_multishell_msmt_ACT-hsvs amico_noddi \
+--recon_spec mrtrix_multishell_msmt_ACT-hsvs \
+--recon_spec amico_noddi \
 --freesurfer-input /base/derivatives/fmriprep/sourcedata/freesurfer \
 --fs-license-file /opts/fs_license.txt \
 -w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
