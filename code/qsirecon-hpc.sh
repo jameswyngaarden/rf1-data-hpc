@@ -59,6 +59,7 @@ participant --participant_label $sub \
 --recon_spec amico_noddi \
 --freesurfer-input /base/derivatives/fmriprep/sourcedata/freesurfer \
 --fs-license-file /opts/fs_license.txt \
+--notrack \
 -w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
 
 echo singularity run --cleanenv \
@@ -75,6 +76,7 @@ participant --participant_label $sub \
 --recon_spec mrtrix_multishell_msmt_ACT-hsvs \
 --freesurfer-input /base/derivatives/fmriprep/sourcedata/freesurfer \
 --fs-license-file /opts/fs_license.txt \
+--notrack \
 -w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
 
 echo singularity run --cleanenv \
@@ -91,6 +93,7 @@ participant --participant_label $sub \
 --recon_spec mrtrix_multishell_msmt_pyafq_tractometry \
 --freesurfer-input /base/derivatives/fmriprep/sourcedata/freesurfer \
 --fs-license-file /opts/fs_license.txt \
+--notrack \
 -w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
 # done
 
