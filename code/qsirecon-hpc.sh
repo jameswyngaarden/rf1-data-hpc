@@ -4,7 +4,7 @@
 #PBS -q normal
 #PBS -m ae
 #PBS -M david.v.smith@temple.edu
-#PBS -l nodes=2:ppn=24
+#PBS -l nodes=1:ppn=28
 
 # load modules and go to workdir
 module load fsl/6.0.2
@@ -60,6 +60,7 @@ participant --participant_label $sub \
 --freesurfer-input /base/derivatives/fmriprep/sourcedata/freesurfer \
 --fs-license-file /opts/fs_license.txt \
 --notrack \
+--nthreads 9 \
 -w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
 
 echo singularity run --cleanenv \
@@ -77,6 +78,7 @@ participant --participant_label $sub \
 --freesurfer-input /base/derivatives/fmriprep/sourcedata/freesurfer \
 --fs-license-file /opts/fs_license.txt \
 --notrack \
+--nthreads 9 \
 -w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
 
 echo singularity run --cleanenv \
@@ -94,6 +96,7 @@ participant --participant_label $sub \
 --freesurfer-input /base/derivatives/fmriprep/sourcedata/freesurfer \
 --fs-license-file /opts/fs_license.txt \
 --notrack \
+--nthreads 9 \
 -w /scratch >> $logdir/cmd_qsirecon_${PBS_JOBID}.txt
 # done
 
