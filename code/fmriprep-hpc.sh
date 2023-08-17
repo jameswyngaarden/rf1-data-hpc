@@ -19,6 +19,13 @@ bidsdir=$maindir/bids
 logdir=$maindir/logs
 mkdir -p $logdir
 
+# prevent fmriprep from average phase and mag parts of the sbref images
+rm -rf ${bidsdir}/sub-*/func/sub-*_part-phase_sbref.*
+for file in `ls -1 ${bidsdir}/sub-*/func/sub-*_part-mag_sbref.*`; do
+	mv "${file}" "${file/_part-mag/}"
+done
+rm -rf ${bidsdir}/sub-*/sub-*_scans.tsv
+
 
 rm -f $logdir/cmd_fmriprep_${PBS_JOBID}.txt
 touch $logdir/cmd_fmriprep_${PBS_JOBID}.txt
